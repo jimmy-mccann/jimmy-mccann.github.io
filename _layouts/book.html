@@ -2,8 +2,6 @@
 layout: book.master
 ---
 
-
-
 {% if site.home %}
 <p>
   <a href="{{ site.home.url }}">{{ site.home.title }}</a>
@@ -26,13 +24,8 @@ layout: book.master
    {% assign book_path = 'manuscript' %}
 {% endif %}
 
-
-
-
 <!-- cover -->
 <h1>{{ book.title }}</h1>
-<h3>by {{ book.author.name }}</h3>
-
 
 <!-- table of contents -->
 
@@ -40,40 +33,40 @@ layout: book.master
 
 <ul>
 {% for chapter in book.contents %}
-  <li>{{ chapter.title }}</li>
+  <li><a href="{{ chapter.path | replace: ".md", ".html" }}">{{ chapter.title }}</a></li>
 {% endfor %}
 </ul>
 </div>
 
-
-
 <!-- chapters -->
 
 {% for chapter in book.contents %}
-{% if forloop.index == page.chapter %}
-<div class="chapter">
-  <h1>{{forloop.index}}. {{ chapter.title }}</h1>
+  {% if forloop.index == page.chapter %}
+    <div class="chapter" style="margin-top: 50px;">
+      <h2>{{ chapter.title }}</h2>
 
-  <!-- try adding content using include_relative -->
-  {% capture txt %}{% include_relative {{ book_path }}/{{chapter.path}} %}{% endcapture %}
+      <!-- try adding content using include_relative -->
+      {% capture txt %}{% include_relative {{ book_path }}/{{chapter.path}} %}{% endcapture %}
 
-  <!-- hack: cut off yaml front matter header
-     possible alternative??:
-       try to use collection and use a content lookup with title or path - why? whynot??
-    -->
-  {% assign txt2 = txt | replace_first: '---', '' | replace_first: '---', '@@END@@' | split: '@@END@@' %}
-  {{ txt2[1] | markdownify }}
-</div>
-{% endif %}
+      <!-- hack: cut off yaml front matter header
+         possible alternative??:
+           try to use collection and use a content lookup with title or path - why? whynot??
+        -->
+      {% assign txt2 = txt | replace_first: '---', '' | replace_first: '---', '@@END@@' | split: '@@END@@' %}
+      {{ txt2[1] | markdownify }}
+    </div>
+
+    <div style="margin-top: 50px;">
+      <hr>
+      {% if forloop.first == false %}
+        {% assign prev_i = forloop.index0 | minus: 1 %}
+        <div style="float: left; max-width: 40%;"><a href="{{ book.contents[prev_i].path | replace: ".md", ".html" }}">&laquo {{ book.contents[prev_i].title }}</a></div>
+      {% endif %}
+      {% if forloop.last == false %}
+        {% assign next_i = forloop.index0 | plus: 1 %}
+        <div style="float: right; max-width: 40%;"><a href="{{ book.contents[next_i].path | replace: ".md", ".html" }}">{{ book.contents[next_i].title }} &raquo</a></div>
+      {% endif %}
+      <div style="margin-top: 50px; margin-bottom: 50px; clear: both; text-align: center;"><a href="https://github.com/jimmy-mccann/jimmy-mccann.github.io/issues/new">Comments?</a></div>
+    </div>
+  {% endif %}
 {% endfor %}
-
-
-
-{% if book.github %}
-<!-- github ribbon
-     see https://github.com/blog/273-github-ribbons
-  -->
-<a href="{{ book.github.url }}">
-  <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png">
-</a>
-{% endif %}
