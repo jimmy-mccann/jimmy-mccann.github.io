@@ -60,13 +60,13 @@ layout: book.master
       <hr>
       {% if forloop.first == false %}
         {% assign prev_i = forloop.index0 | minus: 1 %}
-        <div style="float: left; max-width: 15em;"><a href="{{ book.contents[prev_i].path | replace: ".md", ".html" }}">&laquo {{ book.contents[prev_i].title }}</a></div>
+        <div style="float: left; max-width: 15em; font-size: 1.25em;"><a href="{{ book.contents[prev_i].path | replace: ".md", ".html" }}">&laquo {{ book.contents[prev_i].title }}</a></div>
       {% endif %}
       {% if forloop.last == false %}
         {% assign next_i = forloop.index0 | plus: 1 %}
-        <div style="float: right; max-width: 15em;"><a href="{{ book.contents[next_i].path | replace: ".md", ".html" }}">{{ book.contents[next_i].title }} &raquo</a></div>
+        <div style="float: right; max-width: 15em; font-size: 1.25em;"><a href="{{ book.contents[next_i].path | replace: ".md", ".html" }}">{{ book.contents[next_i].title }} &raquo</a></div>
       {% endif %}
-      <div style="margin-top: 50px; margin-bottom: 50px; clear: both; text-align: center;"><a href="https://github.com/jimmy-mccann/yimmisbook/issues/new">Comments?</a></div>
+      <div style="margin-top: 50px; margin-bottom: 50px; clear: both; text-align: center; font-size: 1.25em;"><a href="https://github.com/jimmy-mccann/yimmisbook/issues/new">Comments?</a></div>
     </div>
   {% endif %}
 {% endfor %}
