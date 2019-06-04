@@ -1,7 +1,7 @@
 ############################
 #  Book (Meta) Info
 
-title:  Theory of Everything
+title:  Yimmisbook
 year:   2019
 author:
   name: Jimmy McCann
@@ -11,4 +11,4 @@ author:
 
 contents:
 - title: In the paper bag
-  path:  01.md
+  path:  001.md
