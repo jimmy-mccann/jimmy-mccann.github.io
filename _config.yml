@@ -12,5 +12,4 @@ sass:
 
 exclude:
 - README.md
-- preview.png
 - manuscript
