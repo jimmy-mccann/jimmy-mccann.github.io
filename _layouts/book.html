@@ -50,6 +50,7 @@ layout: book.master
 <!-- chapters -->
 
 {% for chapter in book.contents %}
+{% if forloop.index == page.chapter %}
 <div class="chapter">
   <h1>{{forloop.index}}. {{ chapter.title }}</h1>
 
@@ -63,6 +64,7 @@ layout: book.master
   {% assign txt2 = txt | replace_first: '---', '' | replace_first: '---', '@@END@@' | split: '@@END@@' %}
   {{ txt2[1] | markdownify }}
 </div>
+{% endif %}
 {% endfor %}
 
 
